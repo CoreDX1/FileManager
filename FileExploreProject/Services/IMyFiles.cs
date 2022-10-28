@@ -1,19 +1,33 @@
 ﻿using FileExploreProject.Interfaces;
+using FileExploreProject.Models;
 using System.IO;
 
 namespace FileExploreProject.Services
 {
-    public class IMyFiles : InterfaceFiles
+    public class IMyFiles : InterfaceFiles<ListModels>
     {
-        public string Listar()
+        public List<ListModels> Listar()
         {
-            string[] files = Directory.GetDirectories(@"C:\Users\chism\OneDrive\Desktop\MyFiles");
-            string result = string.Empty;
-            for(int i = 0; i < files.Length; i++)
+            string ruta = @"C:\Users\chism\OneDrive\Desktop\MyFiles";
+            return Explorer(ruta);
+        }
+
+        public List<ListModels> Explorer(string path)
+        {
+            List<string> AllContent = new List<string>();
+
+            string[] files = Directory.GetFiles(path);
+
+            foreach (string str in files)
             {
-                result += files[i];
+                AllContent.Add(str);
             }
-            return result;
+
+            List<ListModels> dir = new List<ListModels>()
+            {
+                new ListModels() { Name = "path", Files = AllContent }
+            };
+            return dir;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using FileExploreProject.Interfaces;
+using FileExploreProject.Models;
 using FileExploreProject.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,8 +9,9 @@ namespace FileExploreProject.Controllers
     [Route("api/[controller]")]
     public class FilesController : Controller
     {
-        private InterfaceFiles Files;
-        public FilesController(InterfaceFiles files)
+        private InterfaceFiles<ListModels> Files;
+
+        public FilesController(InterfaceFiles<ListModels> files)
         {
             Files = files;
         }

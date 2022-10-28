@@ -1,7 +1,9 @@
-﻿namespace FileExploreProject.Interfaces
+﻿using FileExploreProject.Models;
+
+namespace FileExploreProject.Interfaces
 {
-    public interface InterfaceFiles
+    public interface InterfaceFiles<T>
     {
-        public string Listar();
+        public List<T> Listar();
     }
 }
