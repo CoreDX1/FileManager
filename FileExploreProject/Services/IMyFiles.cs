@@ -6,28 +6,65 @@ namespace FileExploreProject.Services
 {
     public class IMyFiles : InterfaceFiles<ListModels>
     {
-        public List<ListModels> Listar()
+        private List<string> AllFiles = new();
+        private List<string> AllDirectories = new();
+        private List<ListModels> dir = new();
+
+        public List<ListModels> Listar(string pathFile)
         {
+            string[] urlArray = pathFile.Split('-');
             string ruta = @"C:\Users\chism\OneDrive\Desktop\MyFiles";
-            return Explorer(ruta);
+
+            foreach (string url in urlArray)
+                ruta += $@"\{url}";
+
+            if (Explorer(ruta))
+                return dir;
+            else
+                return dir;
         }
 
-        public List<ListModels> Explorer(string path)
+        public List<ListModels> getArchivo()
         {
-            List<string> AllContent = new List<string>();
+            string ruta = @"C:\Users\chism\OneDrive\Desktop\MyFiles";
+            if (Explorer(ruta))
+                return dir;
+            else
+                return dir;
+        }
 
-            string[] files = Directory.GetFiles(path);
-
-            foreach (string str in files)
+        public bool Explorer(string path)
+        {
+            if (Directory.Exists(path))
             {
-                AllContent.Add(str);
+                string[] files = Directory.GetFiles(path);
+                string[] dirs = Directory.GetDirectories(path);
+
+                foreach (string str in files)
+                {
+                    AllFiles.Add(new FileInfo(str).Name);
+                }
+                foreach (string srt in dirs)
+                {
+                    AllDirectories.Add(new DirectoryInfo(srt).Name);
+                }
+
+                dir = new()
+                {
+                    new ListModels()
+                    {
+                        Name = new DirectoryInfo(path).Name,
+                        Files = AllFiles,
+                        Directories = AllDirectories
+                    }
+                };
+                return true;
             }
-
-            List<ListModels> dir = new List<ListModels>()
+            else
             {
-                new ListModels() { Name = "path", Files = AllContent }
-            };
-            return dir;
+                dir = new() { new ListModels() { Name = "No exite" } };
+                return false;
+            }
         }
     }
 }

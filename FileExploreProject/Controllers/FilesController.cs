@@ -17,9 +17,17 @@ namespace FileExploreProject.Controllers
         }
 
         [HttpGet]
+        [Route("{path}")]
+        public IActionResult SubArchivos(string path)
+        {
+            var data = Files.Listar(path);
+            return Ok(data);
+        }
+
+        [HttpGet]
         public IActionResult Archivos()
         {
-            var data = Files.Listar();
+            var data = Files.getArchivo();
             return Ok(data);
         }
     }

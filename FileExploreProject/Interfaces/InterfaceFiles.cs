@@ -1,9 +1,8 @@
-﻿using FileExploreProject.Models;
-
-namespace FileExploreProject.Interfaces
+﻿namespace FileExploreProject.Interfaces
 {
     public interface InterfaceFiles<T>
     {
-        public List<T> Listar();
+        public List<T> Listar(string pathFile);
+        public List<T> getArchivo();
     }
 }
