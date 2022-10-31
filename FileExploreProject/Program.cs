@@ -14,6 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<InterfaceFiles<ListModels>, IMyFiles>();
+
 // Upload Images
 builder.Services.Configure<FormOptions>(o =>
 {
