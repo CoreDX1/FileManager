@@ -1,4 +1,5 @@
-﻿using FileExploreProject.Services;
+﻿using FileExploreProject.Interfaces;
+using FileExploreProject.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
 
@@ -8,7 +9,11 @@ namespace FileExploreProject.Controllers
     [ApiController]
     public class UploadController : ControllerBase
     {
-        private IUploadImagen uploadM = new IUploadImagen();
+        private InterfaceUploadImagen uploadimg;
+        public UploadController(InterfaceUploadImagen uploadimg)
+        {
+            this.uploadimg = uploadimg;
+        }
 
         [HttpPost, DisableRequestSizeLimit]
         [Route("{path}")]
@@ -17,7 +22,7 @@ namespace FileExploreProject.Controllers
             try
             {
                 var file = Request.Form.Files[0];
-                if (uploadM.PostImagen(file, path))
+                if (uploadimg.PostImagen(file, path))
                 {
                     return Ok("Exito");
                 }

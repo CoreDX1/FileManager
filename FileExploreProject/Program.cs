@@ -2,7 +2,6 @@ using FileExploreProject.Interfaces;
 using FileExploreProject.Models;
 using FileExploreProject.Services;
 using Microsoft.AspNetCore.Http.Features;
-using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<InterfaceFiles<ListModels>, IMyFiles>();
+builder.Services.AddScoped<InterfaceUploadImagen, IUploadImagen>();
 
 // Upload Images
 builder.Services.Configure<FormOptions>(o =>

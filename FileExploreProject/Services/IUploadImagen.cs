@@ -1,8 +1,9 @@
 ﻿using System.Net.Http.Headers;
+using FileExploreProject.Interfaces;
 
 namespace FileExploreProject.Services
 {
-    public class IUploadImagen
+    public class IUploadImagen : InterfaceUploadImagen
     {
         public bool PostImagen(IFormFile imagen , string ruta)
         {
