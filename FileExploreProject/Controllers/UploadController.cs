@@ -11,12 +11,13 @@ namespace FileExploreProject.Controllers
         private IUploadImagen uploadM = new IUploadImagen();
 
         [HttpPost, DisableRequestSizeLimit]
-        public IActionResult Upload()
+        [Route("{path}")]
+        public IActionResult Upload(string path)
         {
             try
             {
                 var file = Request.Form.Files[0];
-                if (uploadM.PostImagen(file))
+                if (uploadM.PostImagen(file, path))
                 {
                     return Ok("Exito");
                 }
