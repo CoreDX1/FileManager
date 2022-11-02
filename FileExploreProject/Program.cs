@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Http.Features;
 
 var builder = WebApplication.CreateBuilder(args);
 
+string _Mycors = "Mycors";
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -12,6 +14,16 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//Cors
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: _Mycors, buider =>
+    {
+        buider.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost")
+        .AllowAnyHeader().AllowAnyMethod();
+    });
+});  
 builder.Services.AddScoped<InterfaceFiles<ListModels>, IMyFiles>();
 builder.Services.AddScoped<InterfaceUploadImagen, IUploadImagen>();
 
@@ -33,6 +45,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors(_Mycors);
 app.UseAuthorization();
 
 app.MapControllers();
