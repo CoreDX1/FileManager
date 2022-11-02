@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
 import { FetchApi } from "../api/ApiFetch";
+import { ApiFetch } from "../interface/Interfaces";
 
-interface ApiFetch {
-  name: string;
-  directories: Array<string>;
-  files: Array<string>;
-}
+
 export const Directories = () => {
   const [get, setGet] = useState<ApiFetch[]>([]);
   const [getPath, setGetPath] = useState<ApiFetch[]>([]);
@@ -26,14 +23,15 @@ export const Directories = () => {
   }, []);
 
   const renderMouse = () => {
-    console.log(getPath)
-  }
+    console.log(getPath);
+  };
 
   const render = () => {
     return get.map((item, index) => {
+
       const dir = item.directories.map((x, index) => {
         return (
-          <p key={index} className="cursor-pointer">
+          <p key={index} className="cursor-pointer" onClick={renderMouse}>
             {x}
           </p>
         );
@@ -54,12 +52,11 @@ export const Directories = () => {
     });
   };
 
-  console.log(getPath);
-
-  return <div>
-    {render()}
+  return (
     <div>
-      <button onClick={renderMouse} className="bg-red-800 font-bold">Button</button>
+      {render()}
+      <div>
+      </div>
     </div>
-    </div>;
+  );
 };

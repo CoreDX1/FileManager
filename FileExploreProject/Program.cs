@@ -1,3 +1,4 @@
+using FileExploreProject.Data;
 using FileExploreProject.Interfaces;
 using FileExploreProject.Models;
 using FileExploreProject.Services;
@@ -18,14 +19,20 @@ builder.Services.AddSwaggerGen();
 //Cors
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: _Mycors, buider =>
-    {
-        buider.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost")
-        .AllowAnyHeader().AllowAnyMethod();
-    });
-});  
+    options.AddPolicy(
+        name: _Mycors,
+        buider =>
+        {
+            buider
+                .SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        }
+    );
+});
 builder.Services.AddScoped<InterfaceFiles<ListModels>, IMyFiles>();
 builder.Services.AddScoped<InterfaceUploadImagen, IUploadImagen>();
+builder.Services.AddDbContext<DbContextSqlite>();
 
 // Upload Images
 builder.Services.Configure<FormOptions>(o =>

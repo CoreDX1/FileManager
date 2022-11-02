@@ -1,6 +1,5 @@
 ﻿using FileExploreProject.Interfaces;
 using FileExploreProject.Models;
-using System.IO;
 
 namespace FileExploreProject.Services
 {

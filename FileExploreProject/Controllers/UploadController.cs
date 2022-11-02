@@ -10,6 +10,7 @@ namespace FileExploreProject.Controllers
     public class UploadController : ControllerBase
     {
         private InterfaceUploadImagen uploadimg;
+
         public UploadController(InterfaceUploadImagen uploadimg)
         {
             this.uploadimg = uploadimg;

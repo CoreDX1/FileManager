@@ -5,9 +5,8 @@ namespace FileExploreProject.Services
 {
     public class IUploadImagen : InterfaceUploadImagen
     {
-        public bool PostImagen(IFormFile imagen , string ruta)
+        public bool PostImagen(IFormFile imagen, string ruta)
         {
-
             string[] rutaTranfor = ruta.Split("-");
             string rutaFinal = @"C:\Users\chism\OneDrive\Desktop\MyFiles";
             foreach (string tranfor in rutaTranfor)
@@ -15,9 +14,7 @@ namespace FileExploreProject.Services
                 rutaFinal += $@"\{tranfor}";
             }
 
-
-            var pathToSave = Path.Combine(rutaFinal
-            );
+            var pathToSave = Path.Combine(rutaFinal);
             if (imagen.Length > 0)
             {
                 string? fileName = ContentDispositionHeaderValue
