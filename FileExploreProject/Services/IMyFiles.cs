@@ -9,11 +9,11 @@ namespace FileExploreProject.Services
         private List<string> AllFiles = new();
         private List<string> AllDirectories = new();
         private List<ListModels> dir = new();
+        public string ruta = @"C:\Users\chism\OneDrive\Desktop\MyFiles";
 
         public List<ListModels> Listar(string pathFile)
         {
             string[] urlArray = pathFile.Split('-');
-            string ruta = @"C:\Users\chism\OneDrive\Desktop\MyFiles";
 
             foreach (string url in urlArray)
                 ruta += $@"\{url}";
@@ -26,7 +26,6 @@ namespace FileExploreProject.Services
 
         public string getArchivo()
         {
-            string ruta = @"C:\Users\chism\OneDrive\Desktop\MyFiles";
             var json = GetDirectory(new DirectoryInfo(ruta)).ToString();
             return json;
         }
