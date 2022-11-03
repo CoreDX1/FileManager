@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "efNnFDE31z3S/ZBLy0rGorTijGhFr8pbGIIVld2dAoSeBnK5nuWuYOnzsxybJsPdlplqHlLhtLKyZVh0mqDuWQ==",
+  "dgSpecHash": "RmfBUCbII4GfHkjDXWoB197oiaKCf9b9P+PHp+m4TcCgXGghhix9ey8u5nJg6CBKbu3L/ukPNhcR3bQf4dHzcg==",
   "success": true,
   "projectFilePath": "C:\\Users\\chism\\source\\repos\\FileExploreProject\\FileExploreProject\\FileExploreProject.csproj",
   "expectedPackageFiles": [
@@ -26,6 +26,7 @@
     "C:\\Users\\chism\\.nuget\\packages\\microsoft.extensions.options\\6.0.0\\microsoft.extensions.options.6.0.0.nupkg.sha512",
     "C:\\Users\\chism\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
     "C:\\Users\\chism\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\chism\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\chism\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.0.6\\sqlitepclraw.bundle_e_sqlite3.2.0.6.nupkg.sha512",
     "C:\\Users\\chism\\.nuget\\packages\\sqlitepclraw.core\\2.0.6\\sqlitepclraw.core.2.0.6.nupkg.sha512",
     "C:\\Users\\chism\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.0.6\\sqlitepclraw.lib.e_sqlite3.2.0.6.nupkg.sha512",

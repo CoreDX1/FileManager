@@ -3,6 +3,6 @@
     public interface InterfaceFiles<T>
     {
         public List<T> Listar(string pathFile);
-        public List<T> getArchivo();
+        public string getArchivo();
     }
 }

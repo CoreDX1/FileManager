@@ -1,5 +1,6 @@
 ﻿using FileExploreProject.Interfaces;
 using FileExploreProject.Models;
+using Newtonsoft.Json.Linq;
 
 namespace FileExploreProject.Services
 {
@@ -23,13 +24,11 @@ namespace FileExploreProject.Services
                 return dir;
         }
 
-        public List<ListModels> getArchivo()
+        public string getArchivo()
         {
             string ruta = @"C:\Users\chism\OneDrive\Desktop\MyFiles";
-            if (Explorer(ruta))
-                return dir;
-            else
-                return dir;
+            var json = GetDirectory(new DirectoryInfo(ruta)).ToString();
+            return json;
         }
 
         public bool Explorer(string path)
@@ -64,6 +63,19 @@ namespace FileExploreProject.Services
                 dir = new() { new ListModels() { Name = "No exite" } };
                 return false;
             }
+        }
+
+        public JToken GetDirectory(DirectoryInfo directory)
+        {
+            return JToken.FromObject(
+                new
+                {
+                    directory = directory
+                        .EnumerateDirectories()
+                        .ToDictionary(x => x.Name, x => GetDirectory(x)),
+                    file = directory.EnumerateFiles().Select(x => x.Name).ToList()
+                }
+            );
         }
     }
 }

@@ -29,7 +29,7 @@ export const Directories = () => {
   const render = () => {
     return get.map((item, index) => {
 
-      const dir = item.directories.map((x, index) => {
+      const dir = item.directory.map((x, index) => {
         return (
           <p key={index} className="cursor-pointer" onClick={renderMouse}>
             {x}
@@ -37,13 +37,12 @@ export const Directories = () => {
         );
       });
 
-      const file = item.files.map((x, index) => {
+      const file = item.file.map((x, index) => {
         return <p key={index}>{x}</p>;
       });
       return (
         <div key={index}>
           <div>
-            <p>{item.name}</p>
           </div>
           {dir}
           {file}
@@ -52,11 +51,9 @@ export const Directories = () => {
     });
   };
 
+  console.log(get)
   return (
     <div>
-      {render()}
-      <div>
-      </div>
     </div>
   );
 };

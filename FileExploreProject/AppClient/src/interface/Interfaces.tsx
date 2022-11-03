@@ -1,5 +1,4 @@
 export interface ApiFetch {
-  name: string;
-  directories: Array<string>;
-  files: Array<string>;
+  directory: Array<string>;
+  file: Array<string>;
 }

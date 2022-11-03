@@ -27,7 +27,7 @@ namespace FileExploreProject.Controllers
         [HttpGet]
         public IActionResult Archivos()
         {
-            var data = Files.getArchivo();
+            string data = Files.getArchivo();
             return Ok(data);
         }
     }
