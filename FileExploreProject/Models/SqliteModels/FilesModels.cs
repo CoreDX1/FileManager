@@ -10,7 +10,7 @@ namespace FileExploreProject.Models.SqliteModels
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string NameFile { get; set; } = string.Empty;
-        public string User { get; set; } = string.Empty; 
+        public string User { get; set; } = string.Empty;
         public string Path { get; set; } = string.Empty;
         public DateTime CreateFile { get; set; }
     }

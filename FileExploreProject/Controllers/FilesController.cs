@@ -21,15 +21,8 @@ namespace FileExploreProject.Controllers
         [Route("{path}")]
         public IActionResult SubArchivos(string path)
         {
-            try
-            {
             var data = Files.Listar(path);
             return Ok(data);
-            }
-            catch (Exception)
-            {
-                return BadRequest();
-            }
         }
 
         [HttpGet]

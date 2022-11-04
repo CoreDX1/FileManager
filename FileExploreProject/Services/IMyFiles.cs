@@ -36,20 +36,16 @@ namespace FileExploreProject.Services
             return json;
         }
 
-        public async Task<FilesModels> CreateFiles(string pathFile , FilesModels files)
+        public async Task<FilesModels> CreateFiles(string pathFile, FilesModels files)
         {
             string[] urlArray = pathFile.Split('-');
 
             foreach (string url in urlArray)
                 ruta += $@"\{url}";
 
-
             if (Directory.Exists(ruta))
             {
-                return new FilesModels()
-                {
-                    Path = "El archivo Existe",
-                };
+                return new FilesModels() { Path = "El archivo Existe", };
             }
 
             DirectoryInfo di = Directory.CreateDirectory(ruta);
@@ -77,8 +73,13 @@ namespace FileExploreProject.Services
             if (Directory.Exists(ruta))
             {
                 Directory.Delete(ruta);
-                var data = await Dbsqlite.Files.FindAsync(ruta);
-                if(data != null)
+
+                var context = new DbContextSqlite();
+                var query = from s in context.Files where s.Path == ruta select s;
+
+                var data = query.FirstOrDefault();
+
+                if (data != null)
                 {
                     Dbsqlite.Remove(data);
                     await Dbsqlite.SaveChangesAsync();
