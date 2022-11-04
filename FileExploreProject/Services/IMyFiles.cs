@@ -20,29 +20,21 @@ namespace FileExploreProject.Services
             Dbsqlite = sqlite;
         }
 
-        public List<ListModels> Listar(string pathFile)
+        public List<ListModels> FilePath(string pathFile)
         {
-            string[] urlArray = pathFile.Split('-');
-
-            foreach (string url in urlArray)
-                ruta += $@"\{url}";
-
+            PathRoot(pathFile);
             return Explorer(ruta) ? dir : dir;
         }
 
-        public string getArchivo()
+        public string File()
         {
             var json = GetDirectory(new DirectoryInfo(ruta)).ToString();
             return json;
         }
 
-        public async Task<FilesModels> CreateFiles(string pathFile, FilesModels files)
+        public async Task<FilesModels> CreateFile(string pathFile, FilesModels files)
         {
-            string[] urlArray = pathFile.Split('-');
-
-            foreach (string url in urlArray)
-                ruta += $@"\{url}";
-
+            PathRoot(pathFile);
             if (Directory.Exists(ruta))
             {
                 return new FilesModels() { Path = "El archivo Existe", };
@@ -75,13 +67,10 @@ namespace FileExploreProject.Services
             return "Error";
         }
 
-        public async Task<string> DeleteFiles(string pathFile)
+        public async Task<string> DeleteFile(string pathFile)
         {
-            string[] urlArray = pathFile.Split('-');
 
-            foreach (string url in urlArray)
-                ruta += $@"\{url}";
-
+            PathRoot(pathFile);
             if (Directory.Exists(ruta))
             {
                 Directory.Delete(ruta);
@@ -147,6 +136,15 @@ namespace FileExploreProject.Services
                     file = directory.EnumerateFiles().Select(x => x.Name).ToList()
                 }
             );
+        }
+
+        public string PathRoot(string root)
+        {
+            string[] urlArray = root.Split('-');
+
+            foreach (string url in urlArray)
+                ruta += $@"\{url}";
+            return ruta;
         }
     }
 }
