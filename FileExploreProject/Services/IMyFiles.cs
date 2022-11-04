@@ -63,6 +63,18 @@ namespace FileExploreProject.Services
             return data;
         }
 
+        public string UpdateFile(string pathFile)
+        {
+            if (Directory.Exists(ruta))
+            {
+                string rutaActual = @$"{ruta}\dir2";
+                string newNameDir = $@"{ruta}\{pathFile}";
+                Directory.Move( rutaActual, newNameDir);
+                return "Nombre Cambiado";
+            }
+            return "Error";
+        }
+
         public async Task<string> DeleteFiles(string pathFile)
         {
             string[] urlArray = pathFile.Split('-');

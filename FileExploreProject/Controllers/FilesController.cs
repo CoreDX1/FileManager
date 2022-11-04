@@ -47,5 +47,13 @@ namespace FileExploreProject.Controllers
             Files.DeleteFiles(path);
             return Ok("Se Borro");
         }
+
+        [HttpPut]
+        [Route("{path}")]
+        public IActionResult UpdateFile(string path)
+        {
+            Files.UpdateFile(path);
+            return Ok("Actualizado");
+        }
     }
 }
