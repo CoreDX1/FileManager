@@ -36,15 +36,23 @@ namespace FileExploreProject.Controllers
         public IActionResult Archivos()
         {
             string data = Files.getArchivo();
-            return Ok(data);
+            return StatusCode(200, data);
         }
 
         [HttpPost]
         [Route("{path}")]
-        public IActionResult Create(string path, FilesModels filesModels)
+        public async Task<IActionResult> Create(string path, FilesModels filesModels)
         {
-            var data = Files.CreateFiles(path, filesModels);
-            return Ok(data);
+            var data = await Files.CreateFiles(path, filesModels);
+            return StatusCode(201, data);
+        }
+
+        [HttpDelete]
+        [Route("{path}")]
+        public IActionResult DeleteFiles(string path)
+        {
+            Files.DeleteFiles(path);
+            return Ok("Se Borro");
         }
     }
 }

@@ -36,7 +36,7 @@ namespace FileExploreProject.Services
             return json;
         }
 
-        public async Task<string> CreateFiles(string pathFile , FilesModels files)
+        public async Task<FilesModels> CreateFiles(string pathFile , FilesModels files)
         {
             string[] urlArray = pathFile.Split('-');
 
@@ -46,8 +46,12 @@ namespace FileExploreProject.Services
 
             if (Directory.Exists(ruta))
             {
-                return "Error : Archivo Existe";
+                return new FilesModels()
+                {
+                    Path = "El archivo Existe",
+                };
             }
+
             DirectoryInfo di = Directory.CreateDirectory(ruta);
 
             var data = new FilesModels()
@@ -60,7 +64,29 @@ namespace FileExploreProject.Services
 
             await Dbsqlite.Files.AddAsync(data);
             await Dbsqlite.SaveChangesAsync();
-            return "Se creo el Archivo";
+            return data;
+        }
+
+        public async Task<string> DeleteFiles(string pathFile)
+        {
+            string[] urlArray = pathFile.Split('-');
+
+            foreach (string url in urlArray)
+                ruta += $@"\{url}";
+
+            if (Directory.Exists(ruta))
+            {
+                Directory.Delete(ruta);
+                var data = await Dbsqlite.Files.FindAsync(ruta);
+                if(data != null)
+                {
+                    Dbsqlite.Remove(data);
+                    await Dbsqlite.SaveChangesAsync();
+                }
+                return "Directorio Borrado";
+            }
+
+            return "Directorio No existe";
         }
 
         public bool Explorer(string path)

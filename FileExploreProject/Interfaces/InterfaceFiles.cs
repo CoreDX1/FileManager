@@ -6,6 +6,7 @@ namespace FileExploreProject.Interfaces
     {
         public List<T> Listar(string pathFile);
         public string getArchivo();
-        public Task<string> CreateFiles(string path, FilesModels files);
+        public Task<FilesModels> CreateFiles(string pathFile, FilesModels files);
+        public Task<string> DeleteFiles(string pathFile);
     }
 }
