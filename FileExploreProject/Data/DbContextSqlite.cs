@@ -23,8 +23,10 @@ namespace FileExploreProject.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UsuariosModels>().HasKey(p => new { p.Id });
+            modelBuilder.Entity<FilesModels>().HasKey(p => new { p.Id });
         }
 
         public DbSet<UsuariosModels> Usuarios { get; set; }
+        public DbSet<FilesModels> Files { get; set; }
     }
 }

@@ -1,5 +1,7 @@
-﻿using FileExploreProject.Interfaces;
+﻿using FileExploreProject.Data;
+using FileExploreProject.Interfaces;
 using FileExploreProject.Models;
+using FileExploreProject.Models.SqliteModels;
 using Newtonsoft.Json.Linq;
 
 namespace FileExploreProject.Services
@@ -11,6 +13,13 @@ namespace FileExploreProject.Services
         private List<ListModels> dir = new();
         public string ruta = @"C:\Users\chism\OneDrive\Desktop\MyFiles";
 
+        private DbContextSqlite Dbsqlite;
+
+        public IMyFiles(DbContextSqlite sqlite)
+        {
+            Dbsqlite = sqlite;
+        }
+
         public List<ListModels> Listar(string pathFile)
         {
             string[] urlArray = pathFile.Split('-');
@@ -18,16 +27,40 @@ namespace FileExploreProject.Services
             foreach (string url in urlArray)
                 ruta += $@"\{url}";
 
-            if (Explorer(ruta))
-                return dir;
-            else
-                return dir;
+            return Explorer(ruta) ? dir : dir;
         }
 
         public string getArchivo()
         {
             var json = GetDirectory(new DirectoryInfo(ruta)).ToString();
             return json;
+        }
+
+        public async Task<string> CreateFiles(string pathFile , FilesModels files)
+        {
+            string[] urlArray = pathFile.Split('-');
+
+            foreach (string url in urlArray)
+                ruta += $@"\{url}";
+
+
+            if (Directory.Exists(ruta))
+            {
+                return "Error : Archivo Existe";
+            }
+            DirectoryInfo di = Directory.CreateDirectory(ruta);
+
+            var data = new FilesModels()
+            {
+                User = files.User,
+                CreateFile = Directory.GetCreationTime(ruta),
+                Path = di.FullName,
+                NameFile = di.Name
+            };
+
+            await Dbsqlite.Files.AddAsync(data);
+            await Dbsqlite.SaveChangesAsync();
+            return "Se creo el Archivo";
         }
 
         public bool Explorer(string path)
