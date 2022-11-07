@@ -57,3 +57,5 @@ C:\Users\chism\source\repos\FileExploreProject\FileExploreProject\bin\Debug\net6
 C:\Users\chism\source\repos\FileExploreProject\FileExploreProject\bin\Debug\net6.0\Humanizer.dll
 C:\Users\chism\source\repos\FileExploreProject\FileExploreProject\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
 C:\Users\chism\source\repos\FileExploreProject\FileExploreProject\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\chism\source\repos\FileExploreProject\FileExploreProject\bin\Debug\net6.0\DotNetEnv.dll
+C:\Users\chism\source\repos\FileExploreProject\FileExploreProject\bin\Debug\net6.0\Sprache.dll

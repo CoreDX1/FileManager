@@ -1,4 +1,5 @@
-﻿using FileExploreProject.Data;
+﻿using FileExploreProject.ConfigEnv;
+using FileExploreProject.Data;
 using FileExploreProject.Interfaces;
 using FileExploreProject.Models;
 using FileExploreProject.Models.SqliteModels;
@@ -10,8 +11,9 @@ namespace FileExploreProject.Services
     {
         private List<string> AllFiles = new();
         private List<string> AllDirectories = new();
-        private List<ListModels> dir = new();
+        private ListModels dir = new();
         public string ruta = @"C:\Users\chism\OneDrive\Desktop\MyFiles";
+        public DotEnv Dot = new();
 
         private DbContextSqlite Dbsqlite;
 
@@ -20,7 +22,7 @@ namespace FileExploreProject.Services
             Dbsqlite = sqlite;
         }
 
-        public List<ListModels> FilePath(string pathFile)
+        public ListModels FilePath(string pathFile)
         {
             PathRoot(pathFile);
             return Explorer(ruta) ? dir : dir;
@@ -28,6 +30,8 @@ namespace FileExploreProject.Services
 
         public string File()
         {
+                       
+            Console.WriteLine(Dot.Load());
             var json = GetDirectory(new DirectoryInfo(ruta)).ToString();
             return json;
         }
@@ -109,25 +113,22 @@ namespace FileExploreProject.Services
 
                 dir = new()
                 {
-                    new ListModels()
-                    {
                         Name = new DirectoryInfo(path).Name,
                         Files = AllFiles,
                         Directories = AllDirectories
-                    }
                 };
                 return true;
             }
             else
             {
-                dir = new() { new ListModels() { Name = "No exite" } };
+                dir = new() {  Name = "No exite" };
                 return false;
             }
         }
 
         public JToken GetDirectory(DirectoryInfo directory)
         {
-            return JToken.FromObject(
+            var text = JToken.FromObject(
                 new
                 {
                     directory = directory
@@ -136,6 +137,7 @@ namespace FileExploreProject.Services
                     file = directory.EnumerateFiles().Select(x => x.Name).ToList()
                 }
             );
+            return text;
         }
 
         public string PathRoot(string root)

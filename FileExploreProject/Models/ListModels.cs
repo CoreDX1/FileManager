@@ -1,4 +1,6 @@
-﻿namespace FileExploreProject.Models
+﻿using Newtonsoft.Json;
+
+namespace FileExploreProject.Models
 {
     public class ListModels
     {
