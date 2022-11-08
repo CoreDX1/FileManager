@@ -1,4 +1,5 @@
 export type ApiFetch = {
-  directory: {};
-  file: [];
+  name: string;
+  files: any[];
+  directories: string[];
 }

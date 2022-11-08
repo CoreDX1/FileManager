@@ -13,7 +13,7 @@ namespace FileExploreProject.Services
     {
         private List<string> AllFiles = new();
         private List<string> AllDirectories = new();
-        private ListModels dir = new();
+        private List<ListModels> dir = new();
         public string ruta = @"C:\Users\chism\OneDrive\Desktop\MyFiles";
         public DotEnv Dot = new();
 
@@ -24,14 +24,14 @@ namespace FileExploreProject.Services
             Dbsqlite = sqlite;
         }
 
-        public ListModels FilePath(string pathFile)
+        public List<ListModels> FilePath(string pathFile)
         {
             PathRoot(pathFile);
             var result = Explorer(ruta) ? dir : dir;
             return result;
         }
 
-        public ListModels File()
+        public List<ListModels> File()
         {
             var result = Explorer(ruta) ? dir : dir;
             return result;
@@ -63,27 +63,28 @@ namespace FileExploreProject.Services
 
         public async Task<bool> UpdateFile(int id, UpdateFiles update)
         {
-                var data = await Dbsqlite.Files.FindAsync(id);
+            var data = await Dbsqlite.Files.FindAsync(id);
 
-                if(data == null) return false;
+            if (data == null)
+                return false;
 
-                string file = @$"{ruta}\{data.NameFile}";
-                string newFile = $@"{ruta}\{update.newName}";
-            
-                Directory.Move(file, newFile);
+            string file = @$"{ruta}\{data.NameFile}";
+            string newFile = $@"{ruta}\{update.newName}";
 
-                if (data != null)
-                {
-                    data.NameFile = update.newName;
-                    data.Path = newFile;
-                    data.UpdateFile = DateTime.Now;
+            Directory.Move(file, newFile);
 
-                    await Dbsqlite.SaveChangesAsync();
-                }
-                return true;
+            if (data != null)
+            {
+                data.NameFile = update.newName;
+                data.Path = newFile;
+                data.UpdateFile = DateTime.Now;
+
+                await Dbsqlite.SaveChangesAsync();
+            }
+            return true;
         }
 
-        public async Task<string> DeleteFile(string pathFile)
+        public async Task<bool> DeleteFile(string pathFile)
         {
             PathRoot(pathFile);
             if (Directory.Exists(ruta))
@@ -100,10 +101,10 @@ namespace FileExploreProject.Services
                     Dbsqlite.Remove(data);
                     await Dbsqlite.SaveChangesAsync();
                 }
-                return "Directorio Borrado";
+                return true;
             }
 
-            return "Directorio No existe";
+            return false;
         }
 
         public bool Explorer(string path)
@@ -124,15 +125,18 @@ namespace FileExploreProject.Services
 
                 dir = new()
                 {
-                    Name = new DirectoryInfo(path).Name,
-                    Files = AllFiles,
-                    Directories = AllDirectories
+                    new ListModels()
+                    {
+                        Name = new DirectoryInfo(path).Name,
+                        Files = AllFiles,
+                        Directories = AllDirectories
+                    }
                 };
                 return true;
             }
             else
             {
-                dir = new() { Name = "No exite" };
+                dir = new() { new ListModels() { Name = "No exite" } };
                 return false;
             }
         }

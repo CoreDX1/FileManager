@@ -44,8 +44,15 @@ namespace FileExploreProject.Controllers
         [Route("{path}")]
         public IActionResult DeleteFiles(string path)
         {
-            Files.DeleteFile(path);
-            return Ok("Se Borro");
+            var data = Files.DeleteFile(path);
+            if (data != null)
+            {
+                return Ok("Se Borro");
+            }
+            else
+            {
+                return BadRequest("Error Al Borrar");
+            }
         }
 
         [HttpPut]
