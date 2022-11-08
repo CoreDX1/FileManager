@@ -65,11 +65,11 @@ namespace FileExploreProject.Services
         {
             if (Directory.Exists(ruta))
             {
-                string file = @$"{ruta}\{update.Name}";
+                var data = await Dbsqlite.Files.FindAsync(id);
+
+                string file = @$"{ruta}\{data.NameFile}";
                 string newFile = $@"{ruta}\{update.newName}";
                 Directory.Move(file, newFile);
-
-                var data = await Dbsqlite.Files.FindAsync(id);
                 if(data != null)
                 {
                     data.NameFile = update.newName;
