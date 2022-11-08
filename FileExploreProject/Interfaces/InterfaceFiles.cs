@@ -8,6 +8,6 @@ namespace FileExploreProject.Interfaces
         public T File();
         public Task<FilesModels> CreateFile(string pathFile, SaveFile files);
         public Task<string> DeleteFile(string pathFile);
-        public Task<string> UpdateFile(int id, UpdateFiles update);
+        public Task<bool> UpdateFile(int id, UpdateFiles update);
     }
 }

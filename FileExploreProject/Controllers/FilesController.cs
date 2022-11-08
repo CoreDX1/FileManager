@@ -50,10 +50,17 @@ namespace FileExploreProject.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public IActionResult UpdateFile(int id , UpdateFiles name)
+        public async Task<IActionResult> UpdateFile(int id, UpdateFiles name)
         {
-            Files.UpdateFile(id, name);
-            return Ok("Actualizado");
+            bool data = await Files.UpdateFile(id, name);
+            if (data)
+            {
+                return Ok("Actualizado");
+            }
+            else
+            {
+                return BadRequest("Error");
+            }
         }
     }
 }

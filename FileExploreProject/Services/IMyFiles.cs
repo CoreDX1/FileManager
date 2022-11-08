@@ -42,7 +42,7 @@ namespace FileExploreProject.Services
             PathRoot(pathFile);
             if (Directory.Exists(ruta))
             {
-                return new FilesModels() { Path = "El archivo Existe"};
+                return new FilesModels() { Path = "El archivo Existe" };
             }
 
             DirectoryInfo di = Directory.CreateDirectory(ruta);
@@ -61,16 +61,17 @@ namespace FileExploreProject.Services
             return data;
         }
 
-        public async Task<string> UpdateFile(int id , UpdateFiles update)
+        public async Task<bool> UpdateFile(int id, UpdateFiles update)
         {
             if (Directory.Exists(ruta))
             {
                 var data = await Dbsqlite.Files.FindAsync(id);
+                if(data == null) return false;
 
                 string file = @$"{ruta}\{data.NameFile}";
                 string newFile = $@"{ruta}\{update.newName}";
                 Directory.Move(file, newFile);
-                if(data != null)
+                if (data != null)
                 {
                     data.NameFile = update.newName;
                     data.Path = newFile;
@@ -78,9 +79,9 @@ namespace FileExploreProject.Services
 
                     await Dbsqlite.SaveChangesAsync();
                 }
-                return "Nombre Cambiado";
+                return true;
             }
-            return "Error";
+            return false;
         }
 
         public async Task<string> DeleteFile(string pathFile)
