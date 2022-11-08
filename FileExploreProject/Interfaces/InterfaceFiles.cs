@@ -6,7 +6,7 @@ namespace FileExploreProject.Interfaces
     {
         public T FilePath(string pathFile);
         public T File();
-        public Task<FilesModels> CreateFile(string pathFile, FilesModels files);
+        public Task<FilesModels> CreateFile(string pathFile, SaveFile files);
         public Task<string> DeleteFile(string pathFile);
         public Task<string> UpdateFile(int id, UpdateFiles update);
     }

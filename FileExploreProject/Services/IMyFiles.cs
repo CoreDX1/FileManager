@@ -37,7 +37,7 @@ namespace FileExploreProject.Services
             return result;
         }
 
-        public async Task<FilesModels> CreateFile(string pathFile, FilesModels files)
+        public async Task<FilesModels> CreateFile(string pathFile, SaveFile files)
         {
             PathRoot(pathFile);
             if (Directory.Exists(ruta))

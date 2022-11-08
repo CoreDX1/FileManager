@@ -34,7 +34,7 @@ namespace FileExploreProject.Controllers
 
         [HttpPost]
         [Route("{path}")]
-        public async Task<IActionResult> Create(string path, FilesModels filesModels)
+        public async Task<IActionResult> Create(string path, SaveFile filesModels)
         {
             var data = await Files.CreateFile(path, filesModels);
             return StatusCode(201, data);
