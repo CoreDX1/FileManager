@@ -25,15 +25,14 @@ namespace FileExploreProject.Services
         public ListModels FilePath(string pathFile)
         {
             PathRoot(pathFile);
-            return Explorer(ruta) ? dir : dir;
+            var result = Explorer(ruta) ? dir : dir;
+            return result;
         }
 
-        public string File()
+        public ListModels File()
         {
-                       
-            Console.WriteLine(Dot.Load());
-            var json = GetDirectory(new DirectoryInfo(ruta)).ToString();
-            return json;
+            var result = Explorer(ruta) ? dir : dir;
+            return result;
         }
 
         public async Task<FilesModels> CreateFile(string pathFile, FilesModels files)
@@ -41,7 +40,7 @@ namespace FileExploreProject.Services
             PathRoot(pathFile);
             if (Directory.Exists(ruta))
             {
-                return new FilesModels() { Path = "El archivo Existe", };
+                return new FilesModels() { Path = "El archivo Existe"};
             }
 
             DirectoryInfo di = Directory.CreateDirectory(ruta);
@@ -65,7 +64,7 @@ namespace FileExploreProject.Services
             {
                 string rutaActual = @$"{ruta}\dir2";
                 string newNameDir = $@"{ruta}\{pathFile}";
-                Directory.Move( rutaActual, newNameDir);
+                Directory.Move(rutaActual, newNameDir);
                 return "Nombre Cambiado";
             }
             return "Error";
@@ -73,7 +72,6 @@ namespace FileExploreProject.Services
 
         public async Task<string> DeleteFile(string pathFile)
         {
-
             PathRoot(pathFile);
             if (Directory.Exists(ruta))
             {
@@ -113,15 +111,15 @@ namespace FileExploreProject.Services
 
                 dir = new()
                 {
-                        Name = new DirectoryInfo(path).Name,
-                        Files = AllFiles,
-                        Directories = AllDirectories
+                    Name = new DirectoryInfo(path).Name,
+                    Files = AllFiles,
+                    Directories = AllDirectories
                 };
                 return true;
             }
             else
             {
-                dir = new() {  Name = "No exite" };
+                dir = new() { Name = "No exite" };
                 return false;
             }
         }

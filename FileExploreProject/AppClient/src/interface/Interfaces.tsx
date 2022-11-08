@@ -1,4 +1,4 @@
-export interface ApiFetch {
-  directory: Array<string>;
-  file: Array<string>;
+export type ApiFetch = {
+  directory: {};
+  file: [];
 }

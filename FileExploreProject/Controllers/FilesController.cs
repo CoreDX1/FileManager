@@ -28,7 +28,7 @@ namespace FileExploreProject.Controllers
         [HttpGet]
         public IActionResult Archivos()
         {
-            string data = Files.File();
+            var data = Files.File();
             return StatusCode(200, data);
         }
 

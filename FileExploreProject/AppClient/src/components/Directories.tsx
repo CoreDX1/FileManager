@@ -4,7 +4,7 @@ import { ApiFetch } from "../interface/Interfaces";
 
 
 export const Directories = () => {
-  const [get, setGet] = useState<ApiFetch[]>([]);
+  const [get, setGet] = useState<ApiFetch>();
   const [getPath, setGetPath] = useState<ApiFetch[]>([]);
 
   const GetApi = async () => {
@@ -21,6 +21,12 @@ export const Directories = () => {
     GetApi();
     GetPath();
   }, []);
+
+  function GetPrueba(){
+    const data = get?.directory
+    return data
+  }
+  console.log(GetPrueba())
 
   const renderMouse = () => {
     console.log(getPath);
@@ -50,8 +56,6 @@ export const Directories = () => {
       );
     });
   };
-
-  console.log(get)
   return (
     <div>
     </div>
