@@ -34,6 +34,9 @@ namespace FileExploreProject.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("UpdateFile")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("User")
                         .IsRequired()
                         .HasColumnType("TEXT");

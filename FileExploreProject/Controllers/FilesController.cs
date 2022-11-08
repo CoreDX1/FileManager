@@ -49,10 +49,10 @@ namespace FileExploreProject.Controllers
         }
 
         [HttpPut]
-        [Route("{path}")]
-        public IActionResult UpdateFile(string path)
+        [Route("{id}")]
+        public IActionResult UpdateFile(int id , UpdateFiles name)
         {
-            Files.UpdateFile(path);
+            Files.UpdateFile(id, name);
             return Ok("Actualizado");
         }
     }

@@ -13,5 +13,6 @@ namespace FileExploreProject.Models.SqliteModels
         public string User { get; set; } = string.Empty;
         public string Path { get; set; } = string.Empty;
         public DateTime CreateFile { get; set; }
+        public DateTime UpdateFile { get; set; }
     }
 }

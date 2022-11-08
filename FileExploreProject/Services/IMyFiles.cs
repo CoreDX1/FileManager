@@ -3,7 +3,9 @@ using FileExploreProject.Data;
 using FileExploreProject.Interfaces;
 using FileExploreProject.Models;
 using FileExploreProject.Models.SqliteModels;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
+using System.Xml.Serialization;
 
 namespace FileExploreProject.Services
 {
@@ -49,6 +51,7 @@ namespace FileExploreProject.Services
             {
                 User = files.User,
                 CreateFile = Directory.GetCreationTime(ruta),
+                UpdateFile = Directory.GetCreationTime(ruta),
                 Path = di.FullName,
                 NameFile = di.Name
             };
@@ -58,13 +61,23 @@ namespace FileExploreProject.Services
             return data;
         }
 
-        public string UpdateFile(string pathFile)
+        public async Task<string> UpdateFile(int id , UpdateFiles update)
         {
             if (Directory.Exists(ruta))
             {
-                string rutaActual = @$"{ruta}\dir2";
-                string newNameDir = $@"{ruta}\{pathFile}";
-                Directory.Move(rutaActual, newNameDir);
+                string file = @$"{ruta}\{update.Name}";
+                string newFile = $@"{ruta}\{update.newName}";
+                Directory.Move(file, newFile);
+
+                var data = await Dbsqlite.Files.FindAsync(id);
+                if(data != null)
+                {
+                    data.NameFile = update.newName;
+                    data.Path = newFile;
+                    data.UpdateFile = DateTime.Now;
+
+                    await Dbsqlite.SaveChangesAsync();
+                }
                 return "Nombre Cambiado";
             }
             return "Error";

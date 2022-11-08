@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FileExploreProject.Migrations
 {
     [DbContext(typeof(DbContextSqlite))]
-    [Migration("20221103234426_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20221108181640_Sqlite")]
+    partial class Sqlite
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,6 +34,9 @@ namespace FileExploreProject.Migrations
 
                     b.Property<string>("Path")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("UpdateFile")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("User")
