@@ -63,14 +63,15 @@ namespace FileExploreProject.Services
 
         public async Task<bool> UpdateFile(int id, UpdateFiles update)
         {
-            if (Directory.Exists(ruta))
-            {
                 var data = await Dbsqlite.Files.FindAsync(id);
+
                 if(data == null) return false;
 
                 string file = @$"{ruta}\{data.NameFile}";
                 string newFile = $@"{ruta}\{update.newName}";
+            
                 Directory.Move(file, newFile);
+
                 if (data != null)
                 {
                     data.NameFile = update.newName;
@@ -80,8 +81,6 @@ namespace FileExploreProject.Services
                     await Dbsqlite.SaveChangesAsync();
                 }
                 return true;
-            }
-            return false;
         }
 
         public async Task<string> DeleteFile(string pathFile)
