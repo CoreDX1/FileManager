@@ -59,3 +59,8 @@ C:\Users\chism\source\repos\FileExploreProject\FileExploreProject\bin\Debug\net6
 C:\Users\chism\source\repos\FileExploreProject\FileExploreProject\bin\Debug\net6.0\Newtonsoft.Json.dll
 C:\Users\chism\source\repos\FileExploreProject\FileExploreProject\bin\Debug\net6.0\DotNetEnv.dll
 C:\Users\chism\source\repos\FileExploreProject\FileExploreProject\bin\Debug\net6.0\Sprache.dll
+C:\Users\chism\source\repos\FileExploreProject\FileExploreProject\obj\Debug\net6.0\staticwebassets\msbuild.FileExploreProject.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\chism\source\repos\FileExploreProject\FileExploreProject\obj\Debug\net6.0\staticwebassets\msbuild.build.FileExploreProject.props
+C:\Users\chism\source\repos\FileExploreProject\FileExploreProject\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.FileExploreProject.props
+C:\Users\chism\source\repos\FileExploreProject\FileExploreProject\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.FileExploreProject.props
+C:\Users\chism\source\repos\FileExploreProject\FileExploreProject\obj\Debug\net6.0\staticwebassets.pack.json

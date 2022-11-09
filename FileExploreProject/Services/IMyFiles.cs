@@ -3,9 +3,7 @@ using FileExploreProject.Data;
 using FileExploreProject.Interfaces;
 using FileExploreProject.Models;
 using FileExploreProject.Models.SqliteModels;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
-using System.Xml.Serialization;
 
 namespace FileExploreProject.Services
 {

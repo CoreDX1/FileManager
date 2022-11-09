@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { FetchApi } from "../api/ApiFetch";
+import { MouseEvent, useEffect, useState } from "react";
+import { ApiHttp } from "../api/ApiFetch";
 import { ApiFetch } from "../interface/Interfaces";
 
 export const Directories = () => {
@@ -7,45 +7,46 @@ export const Directories = () => {
   const [getPath, setGetPath] = useState<ApiFetch[]>([]);
 
   const GetApi = async () => {
-    const api = await FetchApi.get();
+    const api = await ApiHttp.get();
     setGet(api);
   };
 
-  const GetPath = async () => {
-    const api = await FetchApi.getPath("CRUD");
-    setGetPath(api);
+  const GetPath = async (dir: string) => {
+    const data = await ApiHttp.getPath(dir);
+    setGetPath(data);
   };
+
+  function buttonFiles(e: MouseEvent<HTMLParagraphElement>) {
+    const value = e.currentTarget.textContent as string;
+    GetPath(value);
+    console.log(getPath);
+  }
 
   useEffect(() => {
     GetApi();
-    GetPath();
+    buttonFiles;
   }, []);
 
-  const buttonFiles = () => {
-    console.log(getPath)
-  }
-
   const render = () => {
-    return get.map((item , index) => {
-      const dirs = item.directories.map((items , index) => {
-        return(
-          <p key={index}>{items}</p>
-        )
-      })
+    return get.map((item, index) => {
+      const dirs = item.directories.map((items, index) => {
+        return (
+          <p key={index} onClick={buttonFiles}>
+            {items}
+          </p>
+        );
+      });
       return (
-        <div key={index} className="bg-red-300 flex items-center flex-col gap-1">
+        <div
+          key={index}
+          className="bg-red-300 flex items-center flex-col gap-1"
+        >
           <h1 className="text-3xl">{item.name}</h1>
           {dirs}
         </div>
-      )
+      );
+    });
+  };
 
-    })
-  }
-
-  return <div>
-    {render()}
-    <button onClick={buttonFiles}>
-      Preciona
-    </button>
-  </div>;
+  return <div>{render()}</div>;
 };

@@ -1,12 +1,22 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
+import { ApiFetch, ContratoApi } from "../interface/Interfaces";
 
-export const FetchApi = {
-  get: async () => {
-    const {data} = await axios.get("https://localhost:7160/api/Files")
-    return data;
-  },
-  getPath : async (path : string) => {
-    const {data} = await axios.get("https://localhost:7160/api/Files/" + path)
-    return data;
+class Fetch<T> implements ContratoApi<T> {
+  url: string;
+
+  constructor(url: string) {
+    this.url = url;
   }
-};
+
+  get = async () => {
+    const { data }: AxiosResponse<T[]> = await axios.get(this.url);
+    return data;
+  };
+
+  getPath = async (path: string): Promise<T[]> => {
+    const { data }: AxiosResponse<T[]> = await axios.get(this.url + path);
+    return data;
+  };
+}
+
+export const ApiHttp = new Fetch<ApiFetch>("https://localhost:7160/api/Files/");
