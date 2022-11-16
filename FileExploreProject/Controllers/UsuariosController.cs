@@ -10,9 +10,9 @@ namespace FileExploreProject.Controllers
     [ApiController]
     public class UsuariosController : ControllerBase
     {
-        private DbContextSqlite sqlite;
+        private DbContextPostgres sqlite;
 
-        public UsuariosController(DbContextSqlite sqlite)
+        public UsuariosController(DbContextPostgres sqlite)
         {
             this.sqlite = sqlite;
         }

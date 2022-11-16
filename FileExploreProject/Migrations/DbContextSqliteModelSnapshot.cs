@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FileExploreProject.Migrations
 {
-    [DbContext(typeof(DbContextSqlite))]
+    [DbContext(typeof(DbContextPostgres))]
     partial class DbContextSqliteModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

@@ -15,9 +15,9 @@ namespace FileExploreProject.Services
         public string ruta = @"C:\Users\chism\OneDrive\Desktop\MyFiles";
         public DotEnv Dot = new();
 
-        private DbContextSqlite Dbsqlite;
+        private DbContextPostgres Dbsqlite;
 
-        public IMyFiles(DbContextSqlite sqlite)
+        public IMyFiles(DbContextPostgres sqlite)
         {
             Dbsqlite = sqlite;
         }
@@ -89,7 +89,7 @@ namespace FileExploreProject.Services
             {
                 Directory.Delete(ruta);
 
-                var context = new DbContextSqlite();
+                var context = new DbContextPostgres();
                 var query = from s in context.Files where s.Path == ruta select s;
 
                 var data = query.FirstOrDefault();

@@ -3,10 +3,9 @@ using FileExploreProject.Interfaces;
 using FileExploreProject.Models;
 using FileExploreProject.Services;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
-string _Mycors = "Mycors";
 
 // Add services to the container.
 
@@ -17,6 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //Cors
+string _Mycors = "Mycors";
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(
@@ -32,7 +32,12 @@ builder.Services.AddCors(options =>
 });
 builder.Services.AddScoped<InterfaceFiles<ListModels>, IMyFiles>();
 builder.Services.AddScoped<InterfaceUploadImagen, IUploadImagen>();
-builder.Services.AddDbContext<DbContextSqlite>();
+builder.Services
+    .AddEntityFrameworkNpgsql()
+    .AddDbContext<DbContextPostgres>(
+        opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("PostgresSQLConnection"))
+    );
+builder.Services.AddDbContext<DbContextPostgres>();
 
 // Upload Images
 builder.Services.Configure<FormOptions>(o =>

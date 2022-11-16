@@ -1,7 +1,6 @@
 ﻿using FileExploreProject.Interfaces;
 using FileExploreProject.Models;
 using FileExploreProject.Models.SqliteModels;
-using FileExploreProject.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FileExploreProject.Controllers

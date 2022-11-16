@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FileExploreProject.Migrations
 {
-    [DbContext(typeof(DbContextSqlite))]
+    [DbContext(typeof(DbContextPostgres))]
     [Migration("20221108181640_Sqlite")]
     partial class Sqlite
     {
