@@ -2,164 +2,25 @@
 using FileExploreProject.Data;
 using FileExploreProject.Interfaces;
 using FileExploreProject.Models;
-using FileExploreProject.Models.SqliteModels;
-using Newtonsoft.Json.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace FileExploreProject.Services
 {
-    public class IMyFiles : InterfaceFiles<ListModels>
+    public class IMyFiles : InterfaceFiles<RotDir>
     {
-        private List<string> AllFiles = new();
-        private List<string> AllDirectories = new();
-        private List<ListModels> dir = new();
         public string ruta = @"C:\Users\chism\OneDrive\Desktop\MyFiles";
-        public DotEnv Dot = new();
 
-        private DbContextPostgres Dbsqlite;
+        private DbContextPostgres Dbpostgres;
 
-        public IMyFiles(DbContextPostgres sqlite)
+        public IMyFiles(DbContextPostgres postgres)
         {
-            Dbsqlite = sqlite;
+            Dbpostgres = postgres;
         }
 
-        public List<ListModels> FilePath(string pathFile)
+        public List<RotDir> File()
         {
-            PathRoot(pathFile);
-            var result = Explorer(ruta) ? dir : dir;
+            var result = Dbpostgres.rotDirs.ToList();
             return result;
-        }
-
-        public List<ListModels> File()
-        {
-            var result = Explorer(ruta) ? dir : dir;
-            return result;
-        }
-
-        public async Task<FilesModels> CreateFile(string pathFile, SaveFile files)
-        {
-            PathRoot(pathFile);
-            if (Directory.Exists(ruta))
-            {
-                return new FilesModels() { Path = "El archivo Existe" };
-            }
-
-            DirectoryInfo di = Directory.CreateDirectory(ruta);
-
-            var data = new FilesModels()
-            {
-                User = files.User,
-                CreateFile = Directory.GetCreationTime(ruta),
-                UpdateFile = Directory.GetCreationTime(ruta),
-                Path = di.FullName,
-                NameFile = di.Name
-            };
-
-            await Dbsqlite.Files.AddAsync(data);
-            await Dbsqlite.SaveChangesAsync();
-            return data;
-        }
-
-        public async Task<bool> UpdateFile(int id, UpdateFiles update)
-        {
-            var data = await Dbsqlite.Files.FindAsync(id);
-
-            if (data == null)
-                return false;
-
-            string file = @$"{ruta}\{data.NameFile}";
-            string newFile = $@"{ruta}\{update.newName}";
-
-            Directory.Move(file, newFile);
-
-            if (data != null)
-            {
-                data.NameFile = update.newName;
-                data.Path = newFile;
-                data.UpdateFile = DateTime.Now;
-
-                await Dbsqlite.SaveChangesAsync();
-            }
-            return true;
-        }
-
-        public async Task<bool> DeleteFile(string pathFile)
-        {
-            PathRoot(pathFile);
-            if (Directory.Exists(ruta))
-            {
-                Directory.Delete(ruta);
-
-                var context = new DbContextPostgres();
-                var query = from s in context.Files where s.Path == ruta select s;
-
-                var data = query.FirstOrDefault();
-
-                if (data != null)
-                {
-                    Dbsqlite.Remove(data);
-                    await Dbsqlite.SaveChangesAsync();
-                }
-                return true;
-            }
-
-            return false;
-        }
-
-        public bool Explorer(string path)
-        {
-            if (Directory.Exists(path))
-            {
-                string[] files = Directory.GetFiles(path);
-                string[] dirs = Directory.GetDirectories(path);
-
-                foreach (string str in files)
-                {
-                    AllFiles.Add(new FileInfo(str).Name);
-                }
-                foreach (string srt in dirs)
-                {
-                    AllDirectories.Add(new DirectoryInfo(srt).Name);
-                }
-
-                dir = new()
-                {
-                    new ListModels()
-                    {
-                        Name = new DirectoryInfo(path).Name,
-                        Files = AllFiles,
-                        Directories = AllDirectories
-                    }
-                };
-                return true;
-            }
-            else
-            {
-                dir = new() { new ListModels() { Name = "No exite" } };
-                return false;
-            }
-        }
-
-        public JToken GetDirectory(DirectoryInfo directory)
-        {
-            var text = JToken.FromObject(
-                new
-                {
-                    directory = directory
-                        .EnumerateDirectories()
-                        .ToDictionary(x => x.Name, x => GetDirectory(x)),
-                    file = directory.EnumerateFiles().Select(x => x.Name).ToList()
-                }
-            );
-            return text;
-        }
-
-        public string PathRoot(string root)
-        {
-            string[] urlArray = root.Split('-');
-
-            foreach (string url in urlArray)
-                ruta += $@"\{url}";
-            return ruta;
         }
     }
 }

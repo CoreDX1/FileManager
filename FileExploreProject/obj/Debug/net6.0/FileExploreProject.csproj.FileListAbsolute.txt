@@ -64,3 +64,5 @@ C:\Users\chism\source\repos\FileExploreProject\FileExploreProject\obj\Debug\net6
 C:\Users\chism\source\repos\FileExploreProject\FileExploreProject\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.FileExploreProject.props
 C:\Users\chism\source\repos\FileExploreProject\FileExploreProject\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.FileExploreProject.props
 C:\Users\chism\source\repos\FileExploreProject\FileExploreProject\obj\Debug\net6.0\staticwebassets.pack.json
+C:\Users\chism\source\repos\FileExploreProject\FileExploreProject\bin\Debug\net6.0\Npgsql.dll
+C:\Users\chism\source\repos\FileExploreProject\FileExploreProject\bin\Debug\net6.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll

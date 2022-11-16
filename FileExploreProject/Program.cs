@@ -30,22 +30,14 @@ builder.Services.AddCors(options =>
         }
     );
 });
-builder.Services.AddScoped<InterfaceFiles<ListModels>, IMyFiles>();
+
+builder.Services.AddScoped<InterfaceFiles<RotDir>, IMyFiles>();
 builder.Services.AddScoped<InterfaceUploadImagen, IUploadImagen>();
+
 builder.Services
-    .AddEntityFrameworkNpgsql()
     .AddDbContext<DbContextPostgres>(
         opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("PostgresSQLConnection"))
     );
-builder.Services.AddDbContext<DbContextPostgres>();
-
-// Upload Images
-builder.Services.Configure<FormOptions>(o =>
-{
-    o.ValueLengthLimit = int.MaxValue;
-    o.MultipartBodyLengthLimit = int.MaxValue;
-    o.MemoryBufferThreshold = int.MaxValue;
-});
 
 var app = builder.Build();
 
