@@ -3,15 +3,16 @@ import { ApiHttp } from "../api/ApiFetch";
 import { ApiFetch } from "../interface/Interfaces";
 
 export const Directories = () => {
+  
   const [get, setGet] = useState<ApiFetch[]>([]);
   const [getPath, setGetPath] = useState<ApiFetch[]>([]);
 
-  const GetApi = async () => {
+  const GetApi = async (): Promise<void> => {
     const api = await ApiHttp.get();
     setGet(api);
   };
 
-  const GetPath = async (dir: string) => {
+  const GetPath = async (dir: string): Promise<void> => {
     const data = await ApiHttp.getPath(dir);
     setGetPath(data);
   };

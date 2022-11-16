@@ -8,7 +8,7 @@ class Fetch<T> implements ContratoApi<T> {
     this.url = url;
   }
 
-  get = async () => {
+  get = async (): Promise<T[]> => {
     const { data }: AxiosResponse<T[]> = await axios.get(this.url);
     return data;
   };
